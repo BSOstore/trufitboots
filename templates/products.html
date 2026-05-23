@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Products</title>
+</head>
+
+<body>
+
+    <h1>Product Selector</h1>
+
+    <select>
+        {% for product in products %}
+        <option>
+            {{ product['brand'] }} -
+            {{ product['model'] }} -
+            {{ product['size_code'] }}
+        </option>
+        {% endfor %}
+    </select>
+
+</body>
+
+</html>

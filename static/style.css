@@ -1,0 +1,78 @@
+.detected-size {
+  font-size: 16px;
+  font-weight: bold;
+  background: rgb(236, 252, 245);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  max-width: 500px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 16px;
+}
+
+.main-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin-top: 24px;
+}
+
+.image-column {
+  width: 160px;
+}
+
+.image-column img {
+  width: 145px;
+  height: auto;
+  border: 1px solid #bbb;
+  padding: 4px;
+  background: white;
+}
+
+.cards-column {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.result-box {
+  width: 230px;
+  min-height: 130px;
+  padding: 18px;
+  background: #eafff5;
+  border: 1px solid #b9d8c9;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.result-box h2,
+.result-box h3 {
+  margin-top: 0;
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.result-box p {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.camera-button {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #2e7d32;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 16px;
+  margin-right: 12px;
+}
+
+.camera-button:hover {
+  background-color: #256428;
+}

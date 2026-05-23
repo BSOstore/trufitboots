@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TruFit Hoof Test</title>
+    <p>
+        Upload a hoof image to analyze dimensions and generate a recommended TruFit boot size.
+    </p>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>TruFit Hoof Image Test</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <label for="image" class="camera-button">
+            Take Picture
+        </label>
+
+        <input type="file" id="image" name="hoof_image" accept="image/*" capture="environment" style="display:none;"
+            required>
+
+        <button type="submit">Analyze Hoof</button>
+
+    </form>
+
+    {% if message %}
+    <p><strong>{{ message }}</strong></p>
+    {% endif %}
+
+    <div class="image-row">
+
+        <div class="main-layout">
+
+            <div class="image-column">
+
+                <h3>Original</h3>
+
+                <img id="previewImage" src="{{ original_image if original_image else '' }}" {% if not original_image
+                    %}style="display:none;" {% endif %}>
+
+                {% if processed_image %}
+                <h3>Hoof Analysis</h3>
+                <img src="{{ processed_image }}">
+                {% endif %}
+
+            </div>
+
+            <div class="cards-column">
+
+                {% if measured_length and measured_width %}
+                <div class="result-box">
+                    <h3>Detected Hoof Measurements</h3>
+                    <p>Length: {{ measured_length }} mm</p>
+                    <p>Width: {{ measured_width }} mm</p>
+                </div>
+                {% endif %}
+
+                {% if best_match %}
+                <div class="result-box">
+                    <h2>Recommended TruFit Boot Size</h2>
+                    <p>Boot Length: {{ best_match['length'] }} mm</p>
+                    <p>Boot Width: {{ best_match['width'] }} mm</p>
+                    <p>Match Score: {{ best_match['score'] }}</p>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const imageInput = document.getElementById("image");
+                const previewImage = document.getElementById("previewImage");
+
+                if (imageInput && previewImage) {
+                    imageInput.addEventListener("change", function () {
+                        const file = this.files[0];
+
+                        if (file) {
+                            previewImage.src = URL.createObjectURL(file);
+                            previewImage.style.display = "block";
+                        } else {
+                            previewImage.src = "";
+                            previewImage.style.display = "none";
+                        }
+                    });
+                }
+            });
+        </script>
+</body>
+
+</html>
