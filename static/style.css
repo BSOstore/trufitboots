@@ -113,3 +113,62 @@ body {
     max-width: 350px;
   }
 }
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 22px;
+    padding: 12px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .main-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 22px;
+  }
+
+  .image-column {
+    width: 100% !important;
+  }
+
+  .image-column img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .cards-column {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 16px;
+  }
+
+  .result-box {
+    width: 100% !important;
+    box-sizing: border-box;
+    font-size: 22px !important;
+  }
+
+  .result-box h2,
+  .result-box h3 {
+    font-size: 26px !important;
+  }
+
+  .result-box p {
+    font-size: 22px !important;
+  }
+
+  .camera-button,
+  button {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 22px !important;
+    padding: 16px;
+  }
+}
