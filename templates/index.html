@@ -36,12 +36,12 @@
 
         <div class="main-layout">
 
-            <div class="image-column">
+            <div class="image-column image-wrapper">
 
                 <h3>Original</h3>
 
-                <img id="previewImage" src="{{ original_image if original_image else '' }}" {% if not original_image
-                    %}style="display:none;" {% endif %}>
+                <img id="previewImage" src="{{ original_image if original_image else '' }}" {% if not original_image %}
+                    style="display:none;" {% endif %}>
 
                 {% if processed_image %}
                 <h3>Hoof Analysis</h3>
