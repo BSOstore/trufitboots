@@ -269,3 +269,15 @@ body {
   opacity: 0.35;
   pointer-events: none;
 }
+
+.image-column img,
+.analysis-wrapper img {
+  max-width: 100%;
+  height: auto;
+}
+
+.analysis-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
