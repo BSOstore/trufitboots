@@ -27,7 +27,14 @@ def process_hoof_image(input_path, output_path):
     x, y, w, h = cv2.boundingRect(largest_contour)
 
     output_img = img.copy()
-    cv2.rectangle(output_img, (x, y), (x + w, y + h), (0, 255, 0), 4)
+
+cv2.drawContours(
+    output_img,
+    [hoof_contour],
+    -1,
+    (0, 255, 0),
+    2
+)
 
     cv2.imwrite(output_path, output_img)
 

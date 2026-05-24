@@ -45,7 +45,14 @@
 
                 {% if processed_image %}
                 <h3>Hoof Analysis</h3>
-                <img src="{{ processed_image }}">
+
+                <div class="analysis-wrapper">
+
+                    <img src="{{ processed_image }}">
+
+                    <img class="hoof-overlay" src="/static/images/hoof_shape.png">
+
+                </div>
                 {% endif %}
 
             </div>
