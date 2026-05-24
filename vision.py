@@ -28,12 +28,12 @@ def process_hoof_image(input_path, output_path):
 
     output_img = img.copy()
 
-cv2.drawContours(
-    output_img,
-    [hoof_contour],
-    -1,
-    (0, 255, 0),
-    2
+    cv2.drawContours(
+        output_img,
+        [largest_contour],
+        -1,
+        (0, 255, 0),
+        2
 )
 
     cv2.imwrite(output_path, output_img)
