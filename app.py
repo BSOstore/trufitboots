@@ -105,6 +105,33 @@ def match(length, width):
 
     return "No match found."
 
+def get_insert_library():
+    image_folder = os.path.join("static", "images")
+    inserts = []
+
+    if os.path.exists(image_folder):
+        for file in os.listdir(image_folder):
+            if file.lower().endswith((".jpg", ".jpeg", ".png")):
+                name = os.path.splitext(file)[0]
+
+                try:
+                    size_part = name[:-1]
+                    direction = name[-1].upper()
+
+                    length, width = size_part.split("x")
+
+                    inserts.append({
+                        "filename": file,
+                        "length": int(length),
+                        "width": int(width),
+                        "direction": direction
+                    })
+
+                except:
+                    pass
+
+    return inserts
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     original_image = None
