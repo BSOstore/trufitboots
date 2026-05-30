@@ -281,3 +281,51 @@ body {
   width: 100%;
   height: auto;
 }
+
+<style > .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.image-card {
+  width: 200px;
+  text-align: center;
+}
+
+.image-card img {
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+<style > .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.image-card {
+  width: 200px;
+  text-align: center;
+}
+
+.image-card img {
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.image-card {
+  width: 200px;
+  text-align: center;
+}
+
+.image-card img {
+  width: 100%;
+  border: 1px solid #ccc;
+}

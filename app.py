@@ -149,6 +149,7 @@ def index():
         measured_length=measured_length,
         measured_width=measured_width,
         best_match=best_match
+        images=images
     )
 
 if __name__ == "__main__":
