@@ -108,12 +108,22 @@ def match(length, width):
 @app.route("/", methods=["GET", "POST"])
 def index():
 
-    original_image = None
+        original_image = None
     processed_image = None
     message = None
     measured_length = None
     measured_width = None
     best_match = None
+
+    image_folder = os.path.join("static", "images")
+    images = []
+
+    if os.path.exists(image_folder):
+        for file in os.listdir(image_folder):
+            if file.lower().endswith((".jpg", ".jpeg", ".png")):
+                images.append(file)
+
+    images.sort()
 
     if request.method == "POST":
 
@@ -148,8 +158,8 @@ def index():
         message=message,
         measured_length=measured_length,
         measured_width=measured_width,
-        best_match=best_match
-        images=images
+        best_match=best_match,
+        images=images,
     )
 
 if __name__ == "__main__":
