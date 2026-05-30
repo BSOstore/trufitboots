@@ -107,8 +107,7 @@ def match(length, width):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-
-        original_image = None
+    original_image = None
     processed_image = None
     message = None
     measured_length = None
@@ -126,12 +125,10 @@ def index():
     images.sort()
 
     if request.method == "POST":
-
         file = request.files.get("hoof_image")
 
         if not file or file.filename == "":
             message = "No image selected."
-
         else:
             filename = secure_filename(file.filename)
 
