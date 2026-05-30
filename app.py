@@ -12,10 +12,12 @@ PROCESSED_FOLDER = "static/processed"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
+
 def get_db_connection():
-    conn = sqlite3.connect('trufitboots.db')
+    conn = sqlite3.connect("trufitboots.db")
     conn.row_factory = sqlite3.Row
     return conn
+
 
 def get_best_match(length, width):
 
@@ -24,19 +26,23 @@ def get_best_match(length, width):
 
     conn = get_db_connection()
 
-    result = conn.execute("""
+    result = conn.execute(
+        """
         SELECT *,
         ABS(length - ?) + ABS(width - ?) AS score
         FROM "TruFit Products"
         ORDER BY score ASC
         LIMIT 1
-    """, (target_length, target_width)).fetchone()
+    """,
+        (target_length, target_width),
+    ).fetchone()
 
     conn.close()
 
     return result
 
-@app.route('/debug-columns')
+
+@app.route("/debug-columns")
 def debug_columns():
 
     conn = get_db_connection()
@@ -54,7 +60,8 @@ def debug_columns():
 
     return output
 
-@app.route('/test-db')
+
+@app.route("/test-db")
 def test_db():
     conn = get_db_connection()
 
@@ -69,7 +76,8 @@ def test_db():
 
     return output
 
-@app.route('/products')
+
+@app.route("/products")
 def products():
 
     conn = get_db_connection()
@@ -78,20 +86,24 @@ def products():
 
     conn.close()
 
-    return render_template('products.html', products=products)
+    return render_template("products.html", products=products)
 
-@app.route('/match/<int:length>/<int:width>')
+
+@app.route("/match/<int:length>/<int:width>")
 def match(length, width):
 
     conn = get_db_connection()
 
-    result = conn.execute("""
+    result = conn.execute(
+        """
         SELECT *,
         ABS(length - ?) + ABS(width - ?) AS score
         FROM "TruFit Products"
         ORDER BY score ASC
         LIMIT 1
-    """, (length, width)).fetchone()
+    """,
+        (length, width),
+    ).fetchone()
 
     conn.close()
 
@@ -104,6 +116,7 @@ def match(length, width):
         """
 
     return "No match found."
+
 
 def get_insert_library():
     image_folder = os.path.join("static", "images")
@@ -120,17 +133,20 @@ def get_insert_library():
 
                     length, width = size_part.split("x")
 
-                    inserts.append({
-                        "filename": file,
-                        "length": int(length),
-                        "width": int(width),
-                        "direction": direction
-                    })
+                    inserts.append(
+                        {
+                            "filename": file,
+                            "length": int(length),
+                            "width": int(width),
+                            "direction": direction,
+                        }
+                    )
 
                 except:
                     pass
 
     return inserts
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -140,16 +156,8 @@ def index():
     measured_length = None
     measured_width = None
     best_match = None
-
-    image_folder = os.path.join("static", "images")
-    images = []
-
-    if os.path.exists(image_folder):
-        for file in os.listdir(image_folder):
-            if file.lower().endswith((".jpg", ".jpeg", ".png")):
-                images.append(file)
-
-    images.sort()
+    length_insert = None
+    width_insert = None
 
     if request.method == "POST":
         file = request.files.get("hoof_image")
@@ -166,14 +174,20 @@ def index():
             file.save(upload_path)
 
             success, message, measured_length, measured_width = process_hoof_image(
-                upload_path,
-                processed_path
+                upload_path, processed_path
             )
 
             if success:
                 original_image = upload_path
                 processed_image = processed_path
+
                 best_match = get_best_match(measured_length, measured_width)
+
+                recommended_length = best_match["length"]
+                recommended_width = best_match["width"]
+
+                length_insert = f"{recommended_length}x{recommended_width}L.jpg"
+                width_insert = f"{recommended_length}x{recommended_width}W.jpg"
 
     return render_template(
         "index.html",
@@ -183,8 +197,11 @@ def index():
         measured_length=measured_length,
         measured_width=measured_width,
         best_match=best_match,
-        images=images,
+        length_insert=length_insert,
+        width_insert=width_insert,
+        images=get_insert_library(),
     )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
