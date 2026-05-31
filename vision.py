@@ -25,7 +25,15 @@ def process_hoof_image(input_path, output_path):
     valid_contours = [c for c in contours if cv2.contourArea(c) > image_area * 0.001]
 
     if not valid_contours:
-        return False, "No large hoof/boot shape detected.", None, None
+        print("Image area:", image_area)
+
+    for c in contours:
+        print("Contour area:", cv2.contourArea(c))
+
+    return False, "No large hoof/boot shape detected.", None, None
+
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    print("Contours found:", len(contours))
 
     largest_contour = max(valid_contours, key=cv2.contourArea)
     print("Total contours found:", len(contours))
