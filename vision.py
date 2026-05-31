@@ -49,7 +49,7 @@ def process_hoof_image(input_path, output_path):
 
     cv2.imwrite(output_path, output_img)
 
-    pixels_per_mm = 0.85
+    pixels_per_mm = 0.9
 
     measured_width = round(w / pixels_per_mm)
     measured_length = round(h / pixels_per_mm)
