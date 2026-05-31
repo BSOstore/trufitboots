@@ -22,7 +22,7 @@ def process_hoof_image(input_path, output_path):
     # Ignore tiny noise contours
     image_area = img.shape[0] * img.shape[1]
 
-    valid_contours = [c for c in contours if cv2.contourArea(c) > image_area * 0.01]
+    valid_contours = [c for c in contours if cv2.contourArea(c) > image_area * 0.001]
 
     if not valid_contours:
         return False, "No large hoof/boot shape detected.", None, None
