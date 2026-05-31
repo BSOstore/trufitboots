@@ -28,6 +28,9 @@ def process_hoof_image(input_path, output_path):
     print("Largest contour area:", cv2.contourArea(largest_contour))
 
     x, y, w, h = cv2.boundingRect(largest_contour)
+
+    output_img = img.copy()
+
     cv2.rectangle(
         output_img,
         (x, y),
@@ -35,8 +38,6 @@ def process_hoof_image(input_path, output_path):
         (255, 0, 0),
         4,
     )
-
-    output_img = img.copy()
 
     cv2.drawContours(
         output_img,
