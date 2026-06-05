@@ -74,7 +74,9 @@ def process_hoof_image(input_path, output_path):
 
     cv2.imwrite(output_path, output_img)
 
-    pixels_per_mm = 0.96
+    pixels_per_mm = w / 140
+    measured_width = round(w / pixels_per_mm)
+    measured_length = round(h / pixels_per_mm)
 
     tape_contour = max(yellow_contours, key=cv2.contourArea)
 
