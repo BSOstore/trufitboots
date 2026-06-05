@@ -11,6 +11,21 @@ def process_hoof_image(input_path, output_path):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (7, 7), 0)
     edges = cv2.Canny(blurred, 50, 150)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+
+    lower_yellow = np.array([20, 80, 80])
+    upper_yellow = np.array([40, 255, 255])
+
+    yellow_mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+
+    contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+                                   )
+
+    yellow_contours = [c for c in contours if cv2.contourArea(c) > 500]
+
+    if not yellow_contours:
+        return False, "Calibration tape not found.", None, None
 
     contours, _ = cv2.findContours(
         edges,
@@ -30,6 +45,16 @@ def process_hoof_image(input_path, output_path):
     x, y, w, h = cv2.boundingRect(largest_contour)
 
     output_img = img.copy()
+
+    output_img = img.copy()
+
+cv2.drawContours(
+    output_img,
+    yellow_contours,
+    -1,
+    (0, 255, 255),
+    4,
+)
 
     cv2.rectangle(
         output_img,
