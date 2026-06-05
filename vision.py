@@ -73,6 +73,13 @@ def process_hoof_image(input_path, output_path):
 
     pixels_per_mm = 0.96
 
+    tape_contour = max(yellow_contours, key=cv2.contourArea)
+
+    tx, ty, tw, th = cv2.boundingRect(tape_contour)
+
+    print("Tape width pixels:", tw)
+    print("Tape height pixels:", th)
+
     measured_width = round(w / pixels_per_mm)
     measured_length = round(h / pixels_per_mm)
 
