@@ -19,6 +19,11 @@ def process_hoof_image(input_path, output_path):
 
     contours, _ = cv2.findContours(
         yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        kernel = np.ones((15, 15), np.uint8)
+
+    yellow_mask = cv2.GaussianBlur(yellow_mask, (9, 9), 0)
+    yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_CLOSE, kernel)
+    yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_OPEN, kernel)
     )
 
     yellow_contours = [c for c in contours if cv2.contourArea(c) > 500]
@@ -51,6 +56,13 @@ def process_hoof_image(input_path, output_path):
     print("Bounding width pixels:", w)
     print("Bounding height pixels:", h)
     print("Expected pixels/mm:", w / 140)
+    img_h, img_w = img.shape[:2]
+
+    print("Image size:", img_w, "x", img_h)
+    print("Bounding box:", w, "x", h)
+
+    if h > img_h or w > img_w:
+        return False, "Bad contour detected. Try a clearer image.", None, None
 
     output_img = img.copy()
 
