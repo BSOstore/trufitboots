@@ -17,13 +17,16 @@ def process_hoof_image(input_path, output_path):
 
     yellow_mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
 
-    contours, _ = cv2.findContours(
-        yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-        kernel = np.ones((15, 15), np.uint8)
+    kernel = np.ones((15, 15), np.uint8)
 
     yellow_mask = cv2.GaussianBlur(yellow_mask, (9, 9), 0)
     yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_CLOSE, kernel)
     yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_OPEN, kernel)
+
+    contours, _ = cv2.findContours(
+        yellow_mask,
+        cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE,
     )
 
     yellow_contours = [c for c in contours if cv2.contourArea(c) > 500]
