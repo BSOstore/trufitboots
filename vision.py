@@ -42,6 +42,12 @@ def process_hoof_image(input_path, output_path):
     print("Largest contour area:", cv2.contourArea(largest_contour))
 
     x, y, w, h = cv2.boundingRect(largest_contour)
+    print("x =", x)
+    print("y =", y)
+    print("w =", w)
+    print("h =", h)
+    print("image height =", img.shape[0])
+    print("image width =", img.shape[1])
     print("Bounding width pixels:", w)
     print("Bounding height pixels:", h)
     print("Expected pixels/mm:", w / 140)
