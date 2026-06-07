@@ -45,11 +45,9 @@ def process_hoof_image(input_path, output_path):
         if area < 5000:
             continue
 
-        # Ignore tape-measure-like shapes
         if aspect > 2.0:
             continue
 
-        # Ignore very flat/wide junk
         if h < img_h * 0.20:
             continue
 
