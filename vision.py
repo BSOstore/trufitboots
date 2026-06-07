@@ -40,7 +40,11 @@ def process_hoof_image(input_path, output_path):
         cv2.CHAIN_APPROX_SIMPLE,
     )
 
-    print("Contours found:", len(contours))
+    print(f"Contours found: {len(contours)}")
+    for i, c in enumerate(contours):
+        area = cv2.contourArea(c)
+        x, y, w, h = cv2.boundingRect(c)
+        print(i, area, w, h)
 
     if not contours:
         return False, "No hoof/boot shape detected.", None, None
